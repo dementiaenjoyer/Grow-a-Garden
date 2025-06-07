@@ -20,6 +20,8 @@ local function Retry()
     TeleportService:Teleport(PlaceId, LocalPlayer);
 end
 
+table.foreach(Pets, warn);
+
 for _ = 0, 100 do
     for Index, Descendant in Workspace:GetDescendants() do
         if (not Descendant:GetAttribute("EggName")) then
