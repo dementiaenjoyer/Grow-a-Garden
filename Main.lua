@@ -1,12 +1,12 @@
 -- writefile("PetName.txt", "Raccoon");
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
-local CollectionService = game:GetService("CollectionService");
 local TeleportService = game:GetService("TeleportService");
 local Players = game:GetService("Players");
 local Workspace = game:GetService("Workspace");
 
-local PetEggService = ReplicatedStorage.GameEvents.PetEggService;
+local GameEvents = ReplicatedStorage:WaitForChild("GameEvents");
+local PetEggService = GameEvents.PetEggService;
 
 local LocalPlayer = Players.LocalPlayer;
 local PlaceId = game.PlaceId;
