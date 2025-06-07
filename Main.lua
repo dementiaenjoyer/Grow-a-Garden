@@ -17,10 +17,6 @@ task.wait(0.5);
 local HatchFunction = debug.getupvalue(debug.getupvalue(getconnections(PetEggService.OnClientEvent)[1].Function, 1), 2)
 local Pets = debug.getupvalue(HatchFunction, 2)
 
-while #Pets == 0 do
-    task.wait();
-end
-
 local Found = false;
 local function Retry()
     queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/dementiaenjoyer/Grow-a-Garden/refs/heads/main/Main.lua"));
