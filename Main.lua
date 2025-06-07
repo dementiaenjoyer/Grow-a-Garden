@@ -5,11 +5,13 @@ local TeleportService = game:GetService("TeleportService");
 local Players = game:GetService("Players");
 local Workspace = game:GetService("Workspace");
 
-local GameEvents = ReplicatedStorage:WaitForChild("GameEvents");
+local GameEvents = ReplicatedStorage:WaitForChild("GameEvents", 9e9);
 local PetEggService = GameEvents.PetEggService;
 
 local LocalPlayer = Players.LocalPlayer;
 local PlaceId = game.PlaceId;
+
+repeat task.wait() until game:IsLoaded();
 
 local HatchFunction = debug.getupvalue(debug.getupvalue(getconnections(PetEggService.OnClientEvent)[1].Function, 1), 2)
 local Pets = debug.getupvalue(HatchFunction, 2)
@@ -40,7 +42,7 @@ for _ = 0, 100 do
         end
     end
 
-    task.wait(0.03);
+    task.wait(0.01);
 end
 
 if (not Found) then
