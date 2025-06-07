@@ -4,10 +4,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local CollectionService = game:GetService("CollectionService");
 local TeleportService = game:GetService("TeleportService");
 local Players = game:GetService("Players");
+local Workspace = game:GetService("Workspace");
 
 local PetEggService = ReplicatedStorage.GameEvents.PetEggService;
 
-local Player = Players.LocalPlayer;
+local LocalPlayer = Players.LocalPlayer;
 local PlaceId = game.PlaceId;
 
 local HatchFunction = debug.getupvalue(debug.getupvalue(getconnections(PetEggService.OnClientEvent)[1].Function, 1), 2)
@@ -16,22 +17,28 @@ local Pets = debug.getupvalue(HatchFunction, 2)
 local Found = false;
 local function Retry()
     queue_on_teleport(game:HttpGet("https://raw.githubusercontent.com/dementiaenjoyer/Grow-a-Garden/refs/heads/main/Main.lua"));
-    TeleportService:Teleport(PlaceId, Player);
+    TeleportService:Teleport(PlaceId, LocalPlayer);
 end
 
-for Index, Collected in CollectionService:GetTagged("EggName") do
-    local TimeToHatch = Collected:GetAttribute("TimeToHatch");
+for _ = 0, 100 do
+    for Index, Descendant in Workspace:GetDescendants() do
+        if (not Descendant:GetAttribute("EggName")) then
+            continue;
+        end
 
-    if (TimeToHatch > 0) then
-        continue;
+        if (Descendant:GetAttribute("OWNER") ~= LocalPlayer.Name) then
+            continue;
+        end
+
+        local WantedPet = readfile("PetName.txt");
+        local Name = Pets[Descendant:GetAttribute("OBJECT_UUID")];
+
+        if (Name == WantedPet) then
+            Found = true;
+        end
     end
 
-    local WantedPet = readfile("PetName.txt");
-    local Name = Pets[Collected:GetAttribute("OBJECT_UUID")];
-
-    if (Name == WantedPet) then
-        Found = true;
-    end
+    task.wait(0.03);
 end
 
 if (not Found) then
