@@ -11,7 +11,9 @@ local PetEggService = GameEvents.PetEggService;
 local LocalPlayer = Players.LocalPlayer;
 local PlaceId = game.PlaceId;
 
-repeat task.wait() until game:IsLoaded();
+repeat 
+    task.wait();
+until getconnections(PetEggService.OnClientEvent) > 0;
 
 local HatchFunction = debug.getupvalue(debug.getupvalue(getconnections(PetEggService.OnClientEvent)[1].Function, 1), 2)
 local Pets = debug.getupvalue(HatchFunction, 2)
