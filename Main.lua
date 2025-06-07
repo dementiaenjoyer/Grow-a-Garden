@@ -1,4 +1,4 @@
-writefile("PetName.txt", "Raccoon");
+-- writefile("PetName.txt", "Raccoon");
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local CollectionService = game:GetService("CollectionService");
