@@ -18,8 +18,20 @@ local Connections = getconnections(PetEggService.OnClientEvent);
 
 repeat task.wait() until Connections ~= 0;
 
-local HatchFunction = debug.getupvalue(debug.getupvalue(Connections[1].Function, 1), 2)
-local Pets = debug.getupvalue(HatchFunction, 2)
+local HatchFunction = debug.getupvalue(debug.getupvalue(Connections[1].Function, 1), 2);
+local Pets = debug.getupvalue(HatchFunction, 2);
+
+local function Count(Table)
+    local Current = 0;
+
+    for Index, Object in Connections do
+        Current += 1;
+    end
+
+    return Current;
+end
+
+repeat task.wait() until Count(Pets) ~= 0;
 
 table.foreach(Pets, print);
 
