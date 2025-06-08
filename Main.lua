@@ -1,4 +1,5 @@
 -- writefile("PetName.txt", "Raccoon");
+-- POETRY
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local TeleportService = game:GetService("TeleportService");
@@ -12,10 +13,15 @@ local LocalPlayer = Players.LocalPlayer;
 local PlaceId = game.PlaceId;
 
 repeat task.wait(); until game:IsLoaded();
-task.wait(0.5);
 
-local HatchFunction = debug.getupvalue(debug.getupvalue(getconnections(PetEggService.OnClientEvent)[1].Function, 1), 2)
+local Connections = getconnections(PetEggService.OnClientEvent);
+
+repeat task.wait() until Connections ~= 0;
+
+local HatchFunction = debug.getupvalue(debug.getupvalue(Connections[1].Function, 1), 2)
 local Pets = debug.getupvalue(HatchFunction, 2)
+
+table.foreach(Pets, print);
 
 local Found = false;
 local function Retry()
